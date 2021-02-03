@@ -20,9 +20,9 @@ data:
     <label @CFLOGS>
       <match curiefense.log>
         @id elasticsearch
-        @type elasticsearch
+        @type elasticsearch_data_stream
         hosts "#{ENV['ELASTICSEARCH_HOSTS']}"
-        index_name "#{ENV['CURIEFENSE_ES_INDEX_NAME']}"
+        data_stream_name "#{ENV['CURIEFENSE_ES_INDEX_NAME']}"
         include_timestamp true
         suppress_type_name true
       </match>
