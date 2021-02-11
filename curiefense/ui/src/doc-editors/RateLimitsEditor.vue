@@ -229,12 +229,12 @@
 
 <script lang="ts">
 import _ from 'lodash'
-import DatasetsUtils from '@/assets/DatasetsUtils.ts'
 import ResponseAction from '@/components/ResponseAction.vue'
 import LimitOption, {OptionObject} from '@/components/LimitOption.vue'
 import TagAutocompleteInput from '@/components/TagAutocompleteInput.vue'
 import Vue from 'vue'
 import {LimitOptionType, LimitRuleType, RateLimit} from '@/types'
+import DatasetsUtils from '@/assets/DatasetsUtils'
 
 export default Vue.extend({
   name: 'RateLimits',
@@ -411,11 +411,11 @@ export default Vue.extend({
     normalizeIncludesOrExcludes(value: OptionObject[], include: boolean) {
       // converting includes/excludes from component arrays to selectedDoc objects
       const includeOrExcludeKey = include ? 'include' : 'exclude'
-      const LimitRulesTypes = DatasetsUtils.LimitRulesTypes
+      const limitOptionsTypes = DatasetsUtils.limitOptionsTypes
       if (!this.localDoc[includeOrExcludeKey]) {
         this.$set(this.localDoc, includeOrExcludeKey, {})
       }
-      Object.keys(LimitRulesTypes).forEach((t) => {
+      Object.keys(limitOptionsTypes).forEach((t) => {
         this.$set(this.localDoc[includeOrExcludeKey], t, {})
       })
       value.forEach((el: OptionObject) => {

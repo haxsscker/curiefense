@@ -1,6 +1,6 @@
 import {ACLPolicy, FlowControl, RateLimit, TagRule, URLMap, WAFPolicy} from '@/types'
 
-const Titles: { [key: string]: string } = {
+const titles: { [key: string]: string } = {
   'admin': 'Admin',
   'allow': 'Allow',
   'allow_bot': 'Allow Bot',
@@ -27,13 +27,10 @@ const Titles: { [key: string]: string } = {
   'version-control': 'Version Control',
   'include': 'Include',
   'exclude': 'Exclude',
-
   'headers-entry': 'Header',
   'cookies-entry': 'Cookie',
   'args-entry': 'Argument',
   'attrs-entry': 'Attribute',
-
-
   'aclpolicies': 'ACL Policies',
   'ratelimits': 'Rate Limits',
   'urlmaps': 'URL Maps',
@@ -43,37 +40,14 @@ const Titles: { [key: string]: string } = {
   'flowcontrol': 'Flow Control',
 }
 
-const LimitRulesTypes = {
+const limitOptionsTypes = {
   'headers': 'Header',
   'cookies': 'Cookie',
   'args': 'Argument',
   'attrs': 'Attribute',
 }
 
-const LimitAttributes = {
-  'ip': 'IP Address',
-  'asn': 'Provider',
-  'uri': 'URI',
-  'path': 'Path',
-  'tags': 'Tag',
-  'query': 'Query',
-  'method': 'Method',
-  'company': 'Company',
-  'country': 'Country',
-  'authority': 'Authority',
-}
-
-const ResponseActions = {
-  'default': {'title': '503 Service Unavailable'},
-  'challenge': {'title': 'Challenge'},
-  'monitor': {'title': 'Tag Only'},
-  'response': {'title': 'Response', 'params': {'status': '', 'content': ''}},
-  'redirect': {'title': 'Redirect', 'params': {'status': '30[12378]', 'location': 'https?://.+'}},
-  'ban': {'title': 'Ban', 'params': {'ttl': '[0-9]+', 'action': {'type': 'default', 'params': {}}}},
-  'request_header': {'title': 'Header', 'params': {'headers': ''}},
-}
-
-function convertToUUID() {
+function generateUUID(): string {
   let dt = new Date().getTime()
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     const r = (dt + Math.random() * 16) % 16 | 0
@@ -82,27 +56,27 @@ function convertToUUID() {
   })
 }
 
-function convertToUUID2() {
-  return convertToUUID().split('-')[4]
+function generateUUID2(): string {
+  return generateUUID().split('-')[4]
 }
 
-const NewDocEntryFactory: { [key: string]: Function } = {
+const newDocEntryFactory: { [key: string]: Function } = {
   aclpolicies(): ACLPolicy {
     return {
-      'id': convertToUUID2(),
+      'id': generateUUID2(),
       'name': 'New ACL Policy',
-      'allow': [] as string[],
-      'allow_bot': [] as string[],
-      'deny_bot': [] as string[],
-      'bypass': [] as string[],
-      'force_deny': [] as string[],
-      'deny': [] as string[],
+      'allow': [],
+      'allow_bot': [],
+      'deny_bot': [],
+      'bypass': [],
+      'force_deny': [],
+      'deny': [],
     }
   },
 
   wafpolicies(): WAFPolicy {
     return {
-      'id': convertToUUID2(),
+      'id': generateUUID2(),
       'name': 'New WAF Policy',
       'ignore_alphanum': true,
 
@@ -131,7 +105,7 @@ const NewDocEntryFactory: { [key: string]: Function } = {
 
   tagrules(): TagRule {
     return {
-      'id': convertToUUID2(),
+      'id': generateUUID2(),
       'name': 'New Tag Rules',
       'source': 'self-managed',
       'mdate': (new Date()).toISOString(),
@@ -151,7 +125,7 @@ const NewDocEntryFactory: { [key: string]: Function } = {
 
   urlmaps(): URLMap {
     return {
-      'id': convertToUUID2(),
+      'id': generateUUID2(),
       'name': 'New URL Map',
       'match': '__default__',
       'map': [
@@ -170,7 +144,7 @@ const NewDocEntryFactory: { [key: string]: Function } = {
 
   ratelimits(): RateLimit {
     return {
-      'id': convertToUUID2(),
+      'id': generateUUID2(),
       'description': 'New Rate Limit Rule',
       'name': 'New Rate Limit Rule',
       'limit': '3',
@@ -203,7 +177,7 @@ const NewDocEntryFactory: { [key: string]: Function } = {
 
   flowcontrol(): FlowControl {
     return {
-      'id': convertToUUID2(),
+      'id': generateUUID2(),
       'name': 'New Flow Control',
       'ttl': 60,
       'active': true,
@@ -224,28 +198,11 @@ const NewDocEntryFactory: { [key: string]: Function } = {
 
 }
 
-const ConfAPIRoot = '/conf/api'
-const ConfAPIVersion = 'v1'
-
-const LogsAPIRoot = '/logs/api'
-const LogsAPIVersion = 'v1'
-
-const ACCESSLOG_SQL = `SELECT * FROM (SELECT *, CAST(row_to_json(row) as text) as json_row FROM logs row) rows`
-const ACCESSLOG_SQL_SUFFIX = ' ORDER BY StartTime DESC LIMIT 2048'
-
 export default {
   name: 'DatasetsUtils',
-  Titles,
-  ResponseActions,
-  LimitAttributes,
-  LimitRulesTypes,
-  convertToUUID,
-  convertToUUID2,
-  ConfAPIRoot,
-  ConfAPIVersion,
-  NewDocEntryFactory,
-  LogsAPIRoot,
-  LogsAPIVersion,
-  ACCESSLOG_SQL,
-  ACCESSLOG_SQL_SUFFIX,
+  titles,
+  limitOptionsTypes,
+  generateUUID,
+  generateUUID2,
+  newDocEntryFactory,
 }

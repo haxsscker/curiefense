@@ -151,9 +151,9 @@ export default Vue.extend({
       selectedBucketNames: [],
       // buckets which are within an ongoing publish operation
       publishedBuckets: [],
-      apiRoot: DatasetsUtils.ConfAPIRoot,
-      apiVersion: DatasetsUtils.ConfAPIVersion,
-      titles: DatasetsUtils.Titles,
+      apiRoot: RequestsUtils.confAPIRoot,
+      apiVersion: RequestsUtils.confAPIVersion,
+      titles: DatasetsUtils.titles,
     }
   },
   computed: {
