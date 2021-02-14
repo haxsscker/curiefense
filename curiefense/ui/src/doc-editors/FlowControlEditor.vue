@@ -317,7 +317,7 @@ export default Vue.extend({
     return {
       filters: ['include', 'exclude'] as IncludeExcludeType[],
       addNewTagColName: null,
-      titles: DatasetsUtils.Titles,
+      titles: DatasetsUtils.titles,
       defaultSequenceItem: {
         'method': 'GET',
         'uri': '/',

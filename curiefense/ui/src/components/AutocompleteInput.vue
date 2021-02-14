@@ -135,7 +135,7 @@ export default (Vue as VueConstructor<Vue & {
           values[values.length - 1] = currentValue
           this.autocompleteValue = values.join(' ')
         } else {
-          this.autocompleteValue = (currentValue as any).trim()
+          this.autocompleteValue = currentValue.trim()
         }
       },
     },

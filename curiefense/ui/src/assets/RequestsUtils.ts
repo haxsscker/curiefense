@@ -1,14 +1,14 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
-import DatasetsUtils from '@/assets/DatasetsUtils'
 import * as bulmaToast from 'bulma-toast'
 import {ToastType} from 'bulma-toast'
 
 export type MethodNames = 'GET' | 'PUT' | 'POST' | 'DELETE'
 
-const apiRoot = DatasetsUtils.ConfAPIRoot
-const apiVersion = DatasetsUtils.ConfAPIVersion
-const logsApiRoot = DatasetsUtils.LogsAPIRoot
-const logsApiVersion = DatasetsUtils.LogsAPIVersion
+const confAPIRoot = '/conf/api'
+const confAPIVersion = 'v1'
+const logsAPIRoot = '/logs/api'
+const logsAPIVersion = 'v1'
+
 const axiosMethodsMap: Record<MethodNames, Function> = {
   'GET': axios.get,
   'PUT': axios.put,
@@ -80,13 +80,13 @@ const processRequest = (methodName: MethodNames, apiUrl: string, data: any, conf
 
 const sendRequest = (methodName: MethodNames, urlTail: string, data?: any, config?: AxiosRequestConfig,
                      successMessage?: string, failureMessage?: string) => {
-  const apiUrl = `${apiRoot}/${apiVersion}/${urlTail}`
+  const apiUrl = `${confAPIRoot}/${confAPIVersion}/${urlTail}`
   return processRequest(methodName, apiUrl, data, config, successMessage, failureMessage)
 }
 
 const sendLogsRequest = (methodName: MethodNames, urlTail: string, data?: any, config?: AxiosRequestConfig,
                          successMessage?: string, failureMessage?: string) => {
-  const apiUrl = `${logsApiRoot}/${logsApiVersion}/${urlTail}`
+  const apiUrl = `${logsAPIRoot}/${logsAPIVersion}/${urlTail}`
   return processRequest(methodName, apiUrl, data, config, successMessage, failureMessage)
 }
 
@@ -94,4 +94,8 @@ export default {
   name: 'RequestsUtils',
   sendRequest,
   sendLogsRequest,
+  confAPIRoot,
+  confAPIVersion,
+  logsAPIRoot,
+  logsAPIVersion,
 }
