@@ -25,12 +25,12 @@ const processRequest = (methodName: MethodNames, apiUrl: string, data: any, conf
   }
   const axiosMethod = axiosMethodsMap[methodName]
   if (!axiosMethod) {
-    console.error(`Attempted sending unrecognized request method ${methodName}.`)
+    console.error(`Attempted sending unrecognized request method ${methodName}`)
     return
   }
 
   // Request
-  console.log(`Sending ${methodName} request to url ${apiUrl}.`)
+  console.log(`Sending ${methodName} request to url ${apiUrl}`)
   let request
   if (data) {
     if (config) {
