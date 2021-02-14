@@ -6,6 +6,7 @@
       :clear-input-after-selection="clearInputAfterSelection"
       :auto-focus="autoFocus"
       :selection-type="selectionType"
+      :minimum-value-length="minimumTagLength"
       @value-changed="tagChanged"
       @value-submitted="tagSubmitted"
       @keyup="bubbleEvent('keyup', $event)"
@@ -69,11 +70,11 @@ export default Vue.extend({
       focusedSuggestionIndex: -1,
       db: 'system',
       key: 'tags',
-
       defaultKeyData: defaultKeyData,
       defaultDatabaseData: {
         tags: defaultKeyData,
       },
+      minimumTagLength: 3,
 
       apiRoot: RequestsUtils.confAPIRoot,
       apiVersion: RequestsUtils.confAPIVersion,

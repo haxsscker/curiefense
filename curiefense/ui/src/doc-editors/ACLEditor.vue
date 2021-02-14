@@ -147,11 +147,8 @@ export default Vue.extend({
     },
 
     addNewEntry(section: ACLPolicyFilter, entry: string) {
-      entry = entry.trim()
-      if (entry && entry.length > 2) {
-        this.localDoc[section].push(entry)
-        this.emitDocUpdate()
-      }
+      this.localDoc[section].push(entry)
+      this.emitDocUpdate()
     },
 
     openTagInput(section: ACLPolicyFilter) {

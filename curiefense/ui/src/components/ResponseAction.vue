@@ -59,14 +59,16 @@
               @change="emitActionUpdate"
               title="Status code"
               placeholder="Status code">
-          <input
-              v-if="localAction && localAction.type === 'ban'"
-              class="input is-small"
-              type="text"
-              v-model="localAction.params.ttl"
-              @change="emitActionUpdate"
-              title="Duration"
-              placeholder="Duration">
+          <span class="suffix seconds-suffix">
+            <input
+                v-if="localAction && localAction.type === 'ban'"
+                class="input is-small"
+                type="text"
+                v-model="localAction.params.ttl"
+                @change="emitActionUpdate"
+                title="Duration"
+                placeholder="Duration">
+          </span>
           <input
               v-if="localAction && localAction.type === 'request_header'"
               class="input is-small"
@@ -221,5 +223,6 @@ export default Vue.extend({
 .response-actions .column.additional {
   padding-top: 0;
 }
+
 
 </style>
