@@ -453,12 +453,6 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 
-@import 'node_modules/bulma/sass/utilities/initial-variables.sass';
-@import 'node_modules/bulma/sass/utilities/functions.sass';
-@import 'node_modules/bulma/sass/utilities/derived-variables.sass';
-@import 'node_modules/bulma/sass/utilities/mixins.sass';
-@import 'node_modules/bulma/sass/helpers/typography.sass';
-
 .form-label {
   padding-top: 0.25rem;
 }
@@ -467,11 +461,6 @@ export default Vue.extend({
   input {
     padding-right: 60px;
   }
-}
-
-.seconds-suffix::after {
-  @extend .is-size-7;
-  content: 'seconds';
 }
 
 </style>

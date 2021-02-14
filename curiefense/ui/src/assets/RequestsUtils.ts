@@ -1,7 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
 import DatasetsUtils from '@/assets/DatasetsUtils'
-import * as bulmaToast from 'bulma-toast'
-import {ToastType} from 'bulma-toast'
+import Utils from '@/assets/Utils'
 
 export type MethodNames = 'GET' | 'PUT' | 'POST' | 'DELETE'
 
@@ -16,26 +15,6 @@ const axiosMethodsMap: Record<MethodNames, Function> = {
   'DELETE': axios.delete,
 }
 
-const toast = (message: string, type: ToastType) => {
-  bulmaToast.toast({
-    message: message,
-    type: <ToastType>`is-light ${type}`,
-    position: 'bottom-left',
-    closeOnClick: true,
-    pauseOnHover: true,
-    duration: 3000,
-    opacity: 0.8,
-  })
-}
-
-const successToast = (message: string) => {
-  toast(message, 'is-success')
-}
-
-const failureToast = (message: string) => {
-  toast(message, 'is-danger')
-}
-
 const processRequest = (methodName: MethodNames, apiUrl: string, data: any, config: AxiosRequestConfig,
                         successMessage: string, failureMessage: string) => {
   // Get correct axios method
@@ -46,12 +25,12 @@ const processRequest = (methodName: MethodNames, apiUrl: string, data: any, conf
   }
   const axiosMethod = axiosMethodsMap[methodName]
   if (!axiosMethod) {
-    console.error(`Attempted sending unrecognized request method ${methodName}`)
+    console.error(`Attempted sending unrecognized request method ${methodName}.`)
     return
   }
 
   // Request
-  console.log(`Sending ${methodName} request to url ${apiUrl}`)
+  console.log(`Sending ${methodName} request to url ${apiUrl}.`)
   let request
   if (data) {
     if (config) {
@@ -65,13 +44,13 @@ const processRequest = (methodName: MethodNames, apiUrl: string, data: any, conf
   request = request.then((response: AxiosResponse) => {
     // Toast message
     if (successMessage) {
-      successToast(successMessage)
+      Utils.successToast(successMessage)
     }
     return response
   }).catch((error: Error) => {
     // Toast message
     if (failureMessage) {
-      failureToast(failureMessage)
+      Utils.failureToast(failureMessage)
     }
     throw error
   })
